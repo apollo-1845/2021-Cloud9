@@ -1,9 +1,10 @@
 from piCamera import PiCamera
 from pathlib import *
 
-photoDir = Path("test_photos")
-if not photoDir.exists():
-    Path().mkdir("test_photos")
+def take_pic(filepath):
+    cam = PiCamera()
+    cam.capture(f"{filepath}/unslicedPhoto.jpeg")
 
-cam = PiCamera()
-cam.capture(f"{photoDir}/testimage.jpg")
+    # log stuff
+
+    return Path(f"{filepath}/unslicedPhoto.jpeg")
