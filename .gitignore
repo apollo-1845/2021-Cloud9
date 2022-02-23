@@ -130,3 +130,6 @@ dmypy.json
 
 # Sample images folder - causing performance issues
 Sample_Images/
+ndvi.jpeg
+ndvi.png
+ndvi_contrasted.jpg

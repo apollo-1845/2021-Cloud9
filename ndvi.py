@@ -1,21 +1,8 @@
 import cv2
 import numpy as np
 
-original = cv2.imread('test-input-1.jpeg')
-
-
-def display(image, image_name):
-    image = np.array(image, dtype=float)/float(255)
-    shape = image.shape
-    height = int(shape[0] / 2)
-    width = int(shape[1] / 2)
-    image = cv2.resize(image, (width, height))
-    cv2.namedWindow(image_name)
-    cv2.imshow(image_name, image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
 def contrast_stretch(im):
+    '''Increases contrast on an image - copied from RPi Learning'''
     in_min = np.percentile(im, 5)
     in_max = np.percentile(im, 95)
 
@@ -29,19 +16,22 @@ def contrast_stretch(im):
     return out
 
 def calc_ndvi(image):
+    ''' Calculates NDVI values - copied from RPi Learning'''
     b, g, r = cv2.split(image)
     bottom = (r.astype(float) + b.astype(float))
     bottom[bottom==0] = 0.01
     ndvi = (b.astype(float) - r) / bottom
     return ndvi
 
-contrasted = contrast_stretch(original)
-#cv2.imwrite('contrasted.png', contrasted)
-ndvi = calc_ndvi(contrasted)
-#cv2.imwrite('ndvi.jpg', ndvi)
+def convert_to_ndvi(original_file_path, output_name):
+    '''Converts a named file to an NDVI image'''
+    original = cv2.imread(original_file_path)
+    contrasted = contrast_stretch(original)
+    #cv2.imwrite('contrasted.png', contrasted)
+    ndvi = calc_ndvi(contrasted)
+    ndvi = contrast_stretch(ndvi)
+    cv2.imwrite(output_name, ndvi)
 
 
-# These lines are for post-processing
-
-# ndvi_contrasted = contrast_stretch(ndvi)
-# cv2.imwrite('ndvi_contrasted.jpg', ndvi_contrasted)
+if __name__ == "__main__":
+    convert_to_ndvi("test-input-1.jpeg", "ndvi.jpeg")
