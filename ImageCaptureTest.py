@@ -1,4 +1,4 @@
-from piCamera import PiCamera
+from picamera import PiCamera
 from pathlib import *
 
 def take_pic(filepath):
