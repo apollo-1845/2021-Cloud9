@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Sample images folder - causing performance issues
+Sample_Images/
