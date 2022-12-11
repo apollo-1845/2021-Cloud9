@@ -1,6 +1,6 @@
 from image_slicing import *
 from ndvi import *
-from ImageCaptureTest import *
+from capture_image import *
 from pathlib import *
 import time
 
